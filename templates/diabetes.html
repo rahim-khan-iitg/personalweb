@@ -1,0 +1,88 @@
+{% extends 'basic.html' %}
+{% block title %}Diabetes Prediction{% endblock %}
+{% block body %}
+<div class="container d-flex justify-content-center">
+
+    <form action="{% url 'perd_diabetes' %}" style="border: 2px solid rgb(5, 5, 5);border-radius: 10px;margin-top: 50px; padding: 20px;" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend class="m-2">
+                <h2>Diabetes Prediction</h2>
+            </legend>   
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword1" class="col-form-label"> No. of Pregnencies</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword1" class="form-control" required value="0" name="pregs">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword2" class="col-form-label">Glucose</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword2" class="form-control" required value="120" name="glucose">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword3" class="col-form-label">Blood Presssure</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword3" class="form-control" required value="69.10" name="b-pressure">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword4" class="col-form-label">Skin Thickness</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword4" class="form-control" required value="20.53" name="s-thickness">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword5" class="col-form-label">Insulin</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword5" class="form-control" required value="79.8" name="insulin">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword6" class="col-form-label">BMI</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword6" class="form-control" required value="32" name="bmi">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword7" class="col-form-label">Diabetes Pegigree function</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword7" class="form-control" required value="0.47" name="dpf">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword8" class="col-form-label">Age</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPasswor8" class="form-control" required name="age">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <button class="btn btn-success" type="submit">Predict</button>
+                    <button class="btn btn-danger" onclick="window.location.reload()">Reset</button>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputPassword6" class="form-control" readonly value="{{prediction}}">
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

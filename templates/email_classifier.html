@@ -1,0 +1,40 @@
+{% extends 'basic.html' %}
+{% block title %}Email Classifier{% endblock %}
+{% block body %}
+<div class="container d-flex justify-content-center">
+    <form action="{% url 'email_classifier' %}" style="border: 2px solid rgb(7, 7, 7);border-radius: 10px;margin-top: 30px; padding: 20px;" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend class="m-2">
+                <h2>Spam Email Detector</h2>
+            </legend>   
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <label for="inputPassword1" class="col-form-label">Paste Email Here</label>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <div class="mb-3">
+                      <!-- <label for="" class="form-label"></label> -->
+                      <textarea class="form-control" name="textarea" id="" rows="15" cols="90">
+
+                      </textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col">
+                    <button class="btn btn-success" type="submit">Predict</button>
+                    <button class="btn btn-danger" onclick="window.location.reload()">Reset</button>
+                </div>
+                <div class="col">
+                    <label for="inputPassword6">Prediction</label>
+                    <input type="text" id="inputPassword6" class="form-control" readonly value="{{prediction}}">
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

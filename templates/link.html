@@ -1,0 +1,29 @@
+{% extends 'basic.html' %}
+{% block title %} Link shortener {% endblock %}
+{% block body %}
+<div class="container d-block justify-content-center mt-5" style="max-width: 600px;">
+    <fieldset style="border: 2px solid rgb(8, 8, 8);border-radius: 10px;margin-top: 50px; padding: 20px;">
+        <legend><h1>Shorten the Links</h1></legend>
+    <div class="row g-3 align-items-center">
+        <form action="{% url 'shortener' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_table}}
+            <button class="btn btn-success" type="submit">Shorten</button>
+        </form>
+    </div>
+    <div class=" row g-3 align-items-center">
+        <div class="col">
+            <label for="exampleFormControlInput1" class="form-label">Original Link</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{original}}">
+        </div>
+    </div>
+    <div class=" row g-3 align-items-center">
+        <div class="col">
+            <label for="exampleFormControlInput1" class="form-label">Shortened Link</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" value="{{shorten}}">
+        </div>
+    </div>
+</fieldset>
+</div>
+
+{% endblock %}

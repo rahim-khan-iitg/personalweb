@@ -1,0 +1,39 @@
+{% extends 'basic.html' %}
+{% block title %} YouTube Scrapper {% endblock %}
+{% block body %}
+<div class="container d-flex min-vh-100 justify-item-center align-item-center mt-4">
+    <div class="container">
+        <form class="row g-3" action="{% url 'scrap' %}" method="post">
+            {% csrf_token %}
+            <div class="col-auto">
+                <label for="staticEmail2" class="visually-hidden">Email</label>
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Paste YouTube Video link">
+            </div>
+            <div class="col-auto">
+                <label for="inputPassword2" class="visually-hidden">Password</label>
+                <input type="text" class="form-control" id="inputPassword2" name="link" required>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Fetch Comments</button>
+            </div>
+        </form>
+        <div class="row">
+            <table class="table table-success table-striped">
+                <thead>
+                    <th>User</th>
+                    <th>Comments</th>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        {% for word in row %}
+                        <td>{{word}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

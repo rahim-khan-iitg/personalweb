@@ -1,0 +1,97 @@
+    {% extends 'basic.html' %}
+    {% block title %} Stock Prices {% endblock %}
+    {% block body %}
+    <fieldset style="border: 3px solid rgb(10, 10, 10); border-radius: 10px;margin: 20px; padding: 20px;">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <label for="options" style="font-size: 25px;">Select the Company</label>
+                </div>
+            </div>
+            <form action="{% url 'stock' %}" method="post">
+                {% csrf_token %}
+                <div class="row ">
+                    <div class="col-5">
+                        <!-- <input type="search" name="company" id="options" list="keywords" class="form-control mt-2" required> -->
+                        <select name="company" id="options" list="keywords" class="form-control mt-2" required>
+
+                        </select>
+                        
+                        <!-- <datalist id="keywords"></datalist> -->
+                    </div>
+                    <div class="col" style="margin-left: 0px;">
+                        <select class="form-select mt-2" aria-label=".form-select-sm example" name="select">
+                            <option value="close">close</option>
+                            <option value="open">open</option>
+                            <option value="high">high</option>
+                            <option value="low">low</option>
+                            <option value="volume">volume</option>
+                          </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-success mt-2">Load data</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row text-center mt-5"><label for="">{{company}}</label></div>
+            <div class="row mt-5">
+                <canvas id="myChart" height="300" role="img"></canvas>
+            </div>
+            <div class="row mt-3">
+                <div class="col-auto">
+                    <label for="">Next Day Prediction</label>
+                    <input type="text" name="" id="" readonly class="form-control" value="{{next}}">
+                </div>
+            </div>
+        </div>
+        <textarea name="" id="data" cols="30" rows="10" hidden>{{arr}}</textarea>
+    </div>
+</fieldset>
+    <script src="https://rahimcdn.blob.core.windows.net/mycdn/tickers.js">
+    </script>
+    <script>
+        let datalist = document.getElementById("options")
+        let a = 0;
+        for (let i = 0; i < tickers.length; i++) {
+            let option = document.createElement('option');
+            option.text = tickers[i];
+            datalist.appendChild(option);
+            a++;
+        }
+        let data = document.getElementById("data").value
+        let arr = JSON.parse(data)
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: arr['labels'],
+                datasets: [{
+                    label: 'Predicted values',
+                    data: arr['pred'],
+                    // borderWidth: 1,
+                    borderColor: "black"
+                },
+                {
+                    label:'Real Values',
+                    data:arr['actual'],
+                    borderColor:'red'
+                }
+            ]
+            },
+            options: {
+
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                maintainAspectRatio: false, // Set to false to allow custom aspect ratio
+                aspectRatio: 2,
+            }
+        });
+
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+{% endblock %}
