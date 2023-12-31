@@ -7,3 +7,4 @@ requests
 pandas
 google-api-python-client
 scikit-learn
+dnspython

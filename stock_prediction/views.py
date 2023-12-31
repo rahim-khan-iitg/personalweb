@@ -3,10 +3,13 @@ from .utils import predict
 import pandas as pd
 import os
 import json
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 # def stock(request):
 #     return render(request,"stocks.html")
 
+
+@csrf_exempt
 def stock(request):
     if request.method=="POST":
         company=request.POST.get('company')
